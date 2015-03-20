@@ -17,7 +17,7 @@ setup(name='gridftp_transfer_manager',
       ],
       scripts=[
           'bin/myproxy-logon.py',
-          'bin/globus-endpoint-activate.py'
+          'bin/globus-endpoint-agent.py'
       ],
       zip_safe=True)
 
