@@ -2,7 +2,6 @@
 
 import sys
 sys.path = ["/root/"] + sys.path
-from IPython import embed
 
 from argparse import ArgumentParser
 import keyring
@@ -15,6 +14,7 @@ from globusonline.transfer import api_client
 from globusonline.transfer.api_client import x509_proxy
 
 from gridftp_transfer_manager import myproxy_logon
+import time
 
 
 class TmpFile():
@@ -103,13 +103,17 @@ def main():
         sys.exit(1)
 
     api = GlobusAPI(globus_user, globus_passwd)
-    for ep in args.endpoint:
-        if not api.is_endpoint_activated(ep):
-            try:
-                api.activate_endpoint(ep)
-            except Exception as e:
-                sys.stderr.write("Cannot activate {}\n".format(ep))
-                sys.stderr.write(str(e) + '\n')
+    while True:
+        for ep in args.endpoint:
+            if not api.is_endpoint_activated(ep):
+                try:
+                    api.activate_endpoint(ep)
+                except Exception as e:
+                    sys.stderr.write("Cannot activate {}\n".format(ep))
+                    sys.stderr.write(str(e) + '\n')
+        dur = 60*60
+        sys.stderr.write("Sleeping...\n")
+        time.sleep(60*60)
 
 if __name__ == "__main__":
     main()
