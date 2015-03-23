@@ -14,6 +14,8 @@ It is particularly useful for periodic transfers such as backups.
 
 LIMITATIONS
 
+Beware, this tool is in alpha state...
+
 Currently the tool only support endpoints that are registered to Globus as
 myproxy-oauth but which has a myproxy service publicly exposed.
 
